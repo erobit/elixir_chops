@@ -44,6 +44,11 @@ It however, should give you a feel for my coding capabilities in Elixir, and the
 - types, schemas, resolvers
   - GraphQL API (absinthe) goodies
 
+**.circleci**
+
+- Building and deploying Elixir using docker containers via circle-ci
+- I'm also highly competent in AWS cloud services / DevOps functions!
+
 ## Thank you!
 
 Thank you for your taking the time to review this sample Elixir work. I look forward to answering any questions you may have about anything Elixir, and I'm excited to learn more about how I can help you achieve your Elixir development goals!
