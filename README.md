@@ -2,8 +2,8 @@
 
 - [General info](#general-info)
 - [Frameworks](#Frameworks)
-- [Libraries](#Libraries)
-- [Application features](#appliction-features)
+- [Application features](#application-features)
+- [Thank you](#thank-you)
 
 ## General info
 
@@ -18,7 +18,7 @@ It however, should give you a feel for my coding capabilities in Elixir, and the
 - Elixir: 1.7.3
 - Phoenix: 1.3.4
 
-**Note: I have kicked the tires on LiveView and OTP services, I just haven't had the chance to use them on a project yet. Itching for the opportunity!**
+`Note: I have already spent time learning LiveView (w/ ui components!) along with OTP services. I'm itching for the opportunity to use them on a new project!`
 
 ## Application features
 
