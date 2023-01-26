@@ -1,0 +1,43 @@
+version: '3'
+services:
+  # The elixir backend API
+  api:
+    image: XYZ.dkr.ecr.ca-central-1.amazonaws.com/platform:latest
+    environment:
+      # Variables to connect to our Postgres server
+      PGUSER: postgres
+      PGPASSWORD: postgres
+      PGDATABASE: platform_dev
+      PGPORT: 5432
+      DATABASE_URL: "ecto://postgres:postgres@postgis_db/platform_dev"    # combination of env vars
+      # Hostname of our Postgres container
+      PGHOST: postgis_db
+    ports:
+      # Mapping the port to make the Phoenix app accessible outside of the container
+      - "4000:4000"
+    depends_on:
+      # The db container needs to be started before we start this container
+      - postgis_db
+
+  postgis_db:
+    image: mdillon/postgis:9.6
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD:
+    ports:
+      - "54321:5432"
+    restart: always
+
+  crm:
+    image: XYZ.dkr.ecr.ca-central-1.amazonaws.com/crm:latest
+    depends_on:
+      - api
+    ports:
+      - "3000:3000"
+
+  admin:
+    image: XYZ.dkr.ecr.ca-central-1.amazonaws.com/admin:latest
+    depends_on:
+      - api
+    ports:
+      - "3001:3001"

@@ -1,0 +1,143 @@
+version: 2
+jobs:
+  test:
+    working_directory: ~/platform/
+    docker:
+      - image: elixir:1.7.3
+        environment:
+          - MIX_ENV: test
+          - POSTGRES_USER: postgres
+          - POSTGRES_PASSWORD: postgres
+      - image: mdillon/postgis:9.6
+        environment:
+          - POSTGRES_USER=postgres
+          - PGUSER=postgres
+          - POSTGRES_PASSWORD=
+    steps:
+      - checkout
+
+      - run: mix local.hex --force
+      - run: mix local.rebar --force
+
+      - restore_cache: # restores saved mix cache
+          keys: # list of cache keys, in decreasing specificity
+            - v1-mix-cache-{{ .Branch }}-{{ checksum "mix.lock" }}
+            - v1-mix-cache-{{ .Branch }}
+            - v1-mix-cache
+      - restore_cache: # restores saved build cache
+          keys:
+            - v1-build-cache-{{ .Branch }}
+            - v1-build-cache
+
+      - run:
+          name: Compile the application in the test environment
+          command: mix do deps.get, compile
+
+      - save_cache: # generate and store mix cache
+          key: v1-mix-cache-{{ .Branch }}-{{ checksum "mix.lock" }}
+          paths: 'deps'
+      - save_cache: # make another, less specific cache
+          key: v1-mix-cache-{{ .Branch }}
+          paths: 'deps'
+      - save_cache: # you should really save one more cache (just in case)
+          key: v1-mix-cache
+          paths: 'deps'
+      - save_cache: # don't forget to save a *build* cache, too
+          key: v1-build-cache-{{ .Branch }}
+          paths: '_build'
+      - save_cache: # and one more build cache for good measure
+          key: v1-build-cache
+          paths: '_build'
+
+      # - run:  # special utility that stalls main process until DB is ready
+      #     name: Wait for DB
+      #     command: dockerize -wait tcp://localhost:5432 -timeout 1m
+
+      - run:
+          name: Setup the database with seed data
+          command: cd apps/store && mix ecto.setup # includes ecto.create
+
+      - run: mix test
+
+  # build the elixir release inside a docker container that has the same system os architecture
+  # as our ec2 linux instances (Canonical, Ubuntu, 16.04 LTS, amd64 xenial image)
+  build:
+    working_directory: ~/platform/
+    docker:
+      - image: elixir:1.7.3 # we can't guarantee this is the right OS architecture, so we may need to host our own image
+        environment:
+          - MIX_ENV: prod
+
+    steps:
+      - checkout
+
+      - run: mix local.hex --force
+      - run: mix local.rebar
+
+      - run:
+          name: Get Mix dependencies
+          command: mix deps.get
+
+      # for now we build all the apps together, but we could separately in the future
+      # https://hexdocs.pm/distillery/umbrella-projects.html
+      - run:
+          name: Build App release
+          command: mix release --env=prod
+
+      # persist the compiled release to the workspace for use in the deploy step
+      - persist_to_workspace:
+          root: .
+          paths: _build
+
+  deploy:
+    working_directory: ~/platform/
+    docker:
+      - image: circleci/python:3.6.1
+
+    steps:
+      - attach_workspace:
+          at: ~/platform
+
+      - run:
+          name: Install Python deps (awscli) in a venv
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install awscli
+
+      - deploy:
+          name: Deploy the release to the proper S3 bucket
+          command: |
+            . venv/bin/activate
+
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              aws s3 sync _build/ s3://platform-production-releases --region ca-central-1
+              exit 0
+            fi
+
+            if [ "${CIRCLE_BRANCH}" == "staging" ]; then
+              aws s3 sync _build/ s3://platform-staging-releases --region ca-central-1
+              exit 0
+            fi
+
+            if [ "${CIRCLE_BRANCH}" == "demo" ]; then
+              aws s3 sync _build/ s3://platform-demo-releases --region ca-central-1
+              exit 0
+            fi
+
+            if [ "${CIRCLE_BRANCH}" == "feature/circle-ci-deploy" ]; then
+              aws s3 sync _build/ s3://platform-spinup-releases --region ca-central-1
+              exit 0
+            fi
+
+workflows:
+  version: 2
+  test-build-and-s3-publish:
+    jobs:
+      - test
+      - build:
+          requires:
+            - test
+      - deploy:
+          requires:
+            - build

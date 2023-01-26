@@ -1,0 +1,153 @@
+<html>
+  <head>
+    <title><%= @name %></title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:500|Open+Sans:700" rel="stylesheet">
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1.0, user-scalable=0">
+    <link href="<%= @logo %>" rel="apple-touch-icon">
+    <link rel="icon" sizes="192x192" href="<%= @logo %>">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    
+    <style>
+      body, html, p {
+        padding: 0;
+        margin: 0;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      .wrapper {
+        width: 100vw;
+        height: 100vh;
+        padding: 16px;
+        background-color: #F6F6F6;
+        display: flex;
+        justify-content: center;
+      }
+      .card {
+        width: 100%;
+        height: 100%;
+        max-width: 420px;
+        border-radius: 10px;
+        background-color: white;
+        box-shadow: 0px 0px 8px #E1E0E0;
+        padding-top: 36px;
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+      div.img-container {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-top: 16px;
+      }
+      img.logo {
+        width: 100px;
+        border: 1px solid #b3b3b3;
+        border-radius: 15px;
+      }
+      p {
+        font-family: "Open Sans", sans-serif;
+        font-weight: 700;
+        width: 100%;
+        text-align: center;
+      }
+      p.title {
+        font-size: 16px;
+        text-align: center;
+        width: 100%;
+      }
+      p.shop-name {
+        font-family: "Montserrat", sans-serif;
+        font-weight: 500;
+        font-size: 18px;
+        width: 100%;
+        text-align: center;
+        padding-top: 16px;
+      }
+      div.steps {
+        display: flex;
+        width: 100%;
+        align-items: flex-start;
+        justify-content: space-between;
+        margin-top: 32px;
+      }
+      div.steps#android {
+        flex-direction: column;
+      }
+      div.steps#android .step:nth-child(0) {
+        margin-bottom: 16px;
+      }
+      div.step {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      div.step img {
+        margin-top: 16px;
+      }
+      div.android-arrow {
+        position: absolute;
+        transform: rotate(-120deg);
+        left: 220px;
+        top: 150px;
+      }
+      div.ios-arrow {
+        position: absolute;
+        bottom: 32px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="card">
+        <p class="title">Add shop to your home screen</p>
+        <div class="img-container">
+          <img src="<%= @logo %>" alt="logo" class="logo">
+        </div>
+        <p class="shop-name"><%= @name %></p>
+        <div id="ios" class="steps">
+          <div class="step">
+            <p>Step 1</p>
+            <img src="<%= StoreAPI.Web.Router.Helpers.static_path(@conn, "/images/share.svg") %>" alt="share">
+            <div class="ios-arrow"><img src="<%= StoreAPI.Web.Router.Helpers.static_path(@conn, "/images/arrow.svg") %>" alt="arrow"></div>
+          </div>
+          <div class="step">
+            <p>Step 2</p>
+            <img src="<%= StoreAPI.Web.Router.Helpers.static_path(@conn, "/images/add_ios.png") %>" alt="share">
+          </div>
+        </div>
+        <div id="android" class="steps">
+          <div class="step" style="margin-bottom: 64px;">
+            <p>Step 1</p>
+            <img style="width: 7px;" src="<%= StoreAPI.Web.Router.Helpers.static_path(@conn, "/images/vertical_ellipses.svg") %>" alt="share">
+            <div class="android-arrow"><img src="<%= StoreAPI.Web.Router.Helpers.static_path(@conn, "/images/arrow.svg") %>" alt="arrow"></div>
+          </div>
+          <div class="step">
+            <p>Step 2</p>
+            <p style="color:#8E8E8E;margin-top:16px;">Add to Home Screen</p>
+          </div>
+        </div>
+        <script>
+          if (/android/i.test(navigator.userAgent)) {
+            document.getElementById('ios').remove();
+          }
+
+          if (/iPad|iPhone|iPod/i.test(navigator.userAgent) && !window.MSStream) {
+            document.getElementById('android').remove();
+          }
+
+          var shop_id = window.location.search.match(/\d+/g)[0];
+          if (window.location.hash === '#app') {
+            window.location.hash = '#home';
+          } else {
+            window.location = 'intent://shop/' + shop_id.toString();
+          }
+        </script>
+      </div>
+    </div>
+  </body>
+</html>

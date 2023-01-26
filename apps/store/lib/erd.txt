@@ -1,0 +1,54 @@
+
+Store Base Models
+
+            Businesses
+        /       |        \
+  Customers  Locations    Employees
+
+
+Loyalty Extensions
+
+              |       \           \
+            Members    Deals      Rewards
+              |
+            Points
+
+
+Potential Join Tables
+
+location_members
+location_deals
+location_rewards
+location_employees
+
+This way we can create many to many relationships
+between the entities for example.
+
+Member
+-> locations
+
+Location
+-> members
+-> employees
+-> deals
+-> rewards
+
+Employee
+-> locations
+
+Deal
+-> locations
+
+Reward
+-> locations
+
+Along with our regular 1-many relationships
+Business
+-> locations
+-> customers
+-> members
+-> deals
+-> rewards
+
+Definitions
+* A member is a customer at a business/location
