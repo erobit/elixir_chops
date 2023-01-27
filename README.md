@@ -7,11 +7,11 @@
 
 ## General info
 
-This project demonstrates samples of code that I have personally written in Elixir over the past few years.
+This project demonstrates Elixir code I have personally authored over the past few years.
 
-`Note: the code will not compile or generate a working application as it has come from closed source elixir project(s) and has been stripped of any domain specific functionality so that it could be shared with you today.`
+`Note: the code will not compile and generate a working application as it has come from closed source elixir project(s) which have been stripped of any domain specific functionality so that it could be shared with you.`
 
-It however, should give you a feel for my coding capabilities in Elixir, and there are many features that are directly applicable to your e-commerce domain.
+You should however, be able to get a feel for my coding capabilities in Elixir. There are many sample application features that I have shared that are directly applicable to your e-commerce domain.
 
 ## Tech Stack
 
@@ -21,7 +21,7 @@ It however, should give you a feel for my coding capabilities in Elixir, and the
 - PostgreSQL
 - Docker
 
-`Note: I have already spent time learning LiveView (w/ ui components!) along with OTP services. I'm itching for the opportunity to use them on a new project!`
+`Note: I have a very good grasp of LiveView (w/ ui components!) along with OTP services. I'm itching for the opportunity to use them on a new project!`
 
 ## Application features
 
@@ -50,8 +50,8 @@ It however, should give you a feel for my coding capabilities in Elixir, and the
 **.circleci**
 
 - Building and deploying Elixir using docker containers via circle-ci
-- I'm also highly competent in AWS cloud services / DevOps functions!
+- I'm also highly competent in AWS cloud services / DevOps related functions
 
 ## Thank you!
 
-Thank you for your taking the time to review this sample Elixir work. I look forward to answering any questions you may have about anything Elixir, and I'm excited to learn more about how I can help you achieve your Elixir development goals!
+Thank you for your taking the time to review this sample Elixir work. I look forward to answering any questions you may have, and I'm excited to learn more about how I can help you achieve your Elixir development goals!
