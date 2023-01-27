@@ -9,7 +9,7 @@
 
 This project demonstrates Elixir code I have personally authored over the past few years.
 
-`Note: the code will not compile and generate a working application as it has come from closed source elixir project(s) which have been stripped of any domain specific functionality so that it could be shared with you.`
+`Note: The code will not compile and generate a working application as it has come from closed source elixir project(s) which have been stripped of any domain specific functionality so that it could be shared with you.`
 
 You should however, be able to get a feel for my coding capabilities in Elixir. There are many sample application features that I have shared that are directly applicable to your e-commerce domain.
 
@@ -55,3 +55,5 @@ You should however, be able to get a feel for my coding capabilities in Elixir. 
 ## Thank you!
 
 Thank you for your taking the time to review this sample Elixir work. I look forward to answering any questions you may have, and I'm excited to learn more about how I can help you achieve your Elixir development goals!
+
+_Note: This repository is shared publicly only for the consideration of work opportunities. All rights are reserved to the author for the code that lies herein._
