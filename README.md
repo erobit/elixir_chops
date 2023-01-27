@@ -1,7 +1,7 @@
 ## Table of contents
 
 - [General info](#general-info)
-- [Frameworks](#Frameworks)
+- [Tech Stack](#tech-stack)
 - [Application features](#application-features)
 - [Thank you](#thank-you)
 
@@ -13,10 +13,13 @@ This project demonstrates samples of code that I have personally written in Elix
 
 It however, should give you a feel for my coding capabilities in Elixir, and there are many features that are directly applicable to your e-commerce domain.
 
-## Frameworks
+## Tech Stack
 
-- Elixir: 1.7.3
-- Phoenix: 1.3.4
+- Elixir
+- Phoenix
+- GraphQL
+- PostgreSQL
+- Docker
 
 `Note: I have already spent time learning LiveView (w/ ui components!) along with OTP services. I'm itching for the opportunity to use them on a new project!`
 
