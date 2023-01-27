@@ -21,7 +21,7 @@ You should however, be able to get a feel for my coding capabilities in Elixir. 
 - PostgreSQL
 - Docker
 
-`Note: I have a very good grasp of LiveView (w/ ui components!) along with OTP services. I'm itching for the opportunity to use them on a new project!`
+`Note: I have a very good grasp of LiveView (ui components & slots) along with OTP services. I'm itching for the opportunity to use them on a new project!`
 
 ## Application features
 
