@@ -25,7 +25,7 @@ It however, should give you a feel for my coding capabilities in Elixir, and the
 
 ## Application features
 
-**apps/store/lib/store**
+[apps/store/lib/store](https://github.com/erobit/elixir_chops/tree/main/apps/store/lib/store)
 
 - inventory
   - Product management and integration with third party product providers
@@ -38,7 +38,7 @@ It however, should give you a feel for my coding capabilities in Elixir, and the
 - aws
   - S3 integration
 
-**apps/store-api/lib/web**
+[apps/store-api/lib/web](https://github.com/erobit/elixir_chops/tree/main/apps/store_api/lib/store_api/web)
 
 - plugs
   - A large number of API endpoints to manage all types of cool things
